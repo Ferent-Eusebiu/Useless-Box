@@ -1,24 +1,275 @@
-# Prerequisites
-*.d
+#include <Servo.h>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+Servo doorServo;
+Servo fingerServo;
 
-# Precompiled Headers
-*.gch
-*.pch
+int swPin = 2;
+int pos;
+int dely = 15;
+int selectedMove;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+void setup()
+{
+  pinMode(swPin, INPUT);
 
-# Fortran module files
-*.mod
-*.smod
+  doorServo.attach(9);
+  fingerServo.attach(10);
+  doorServo.write(130);
+  fingerServo.write(10);
+}
+
+void loop()
+{
+
+  if(digitalRead(swPin) == HIGH)
+  {
+    if (selectedMove > 11) 
+    { 
+    selectedMove = 0; 
+    }
+
+    if (selectedMove == 1)
+    {
+    simpleClose();
+    }
+    else if (selectedMove == 2)
+    {
+      simpleClose();// moving slow
+    }else if (selectedMove == 3)
+    {
+      simpleClose();
+    }
+    else if (selectedMove == 4)
+    {
+      madShow();
+    }
+    else if (selectedMove == 5)
+    {
+      madShow();
+    }
+    else if (selectedMove == 6)
+    {
+      simpleClose();
+    }
+    else if (selectedMove == 7)
+    {
+      trollMode();
+    }
+    else if (selectedMove == 8)
+    {
+      simpleClose();
+    }
+    else if (selectedMove == 9)
+    {
+       madShow();
+    }
+    else if (selectedMove == 10)
+    {
+      simpleClose();
+    }
+    else if (selectedMove == 11)
+    {
+      simpleClose();
+    }
+
+    selectedMove += 1;
+  }
+
+}
+
+void reset()
+{
+  doorServo.write(130);
+  fingerServo.write(10);
+  delay(5);
+}
+
+void simpleClose()//----------------------------------------------------
+{
+reset();
+  for (pos = 130; pos > 114; pos -= 3)
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(150);
+
+  for (pos = 10; pos < 180; pos += 10)
+  {
+    fingerServo.write(pos);
+    delay(2);
+  }
+
+  delay(100);
+
+  for (pos = 180; pos > 10; pos -= 1)
+  {
+    fingerServo.write(pos);
+    delay(5);
+  }
+
+delay (150);
+  for (pos = 114; pos < 130; pos += 3)
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+
+}
+
+void madShow()//-----------------------------mad show
+{
+  reset();
+  for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+  for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+  for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+ for (pos = 10; pos < 180; pos += 10)
+  {
+    fingerServo.write(pos);
+    delay(2);
+  }
+
+  delay(10);
+
+  for (pos = 180; pos > 10; pos -= 1)
+  {
+    fingerServo.write(pos);
+    delay(5);
+  }
+
+  delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+}
+
+void trollMode()//-------------------------troll Mode
+{
+  reset();
+  for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(600);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+
+delay(5000);
+
+for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+
+delay(10);
+
+for (pos = 10; pos < 180; pos += 5)
+  {
+    fingerServo.write(pos);
+    delay(2);
+  }
+
+  delay(10);
+
+  for (pos = 180; pos > 10; pos -= 5)
+  {
+    fingerServo.write(pos);
+    delay(5);
+  }
+
+  delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+
+delay(500);
+
+for (pos = 130; pos > 114; pos -= 3)//--open
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+delay(10);
+
+  for (pos = 114; pos < 130; pos += 3)//--close
+  {
+    doorServo.write(pos);
+    delay(15);
+  }
+}
+
 
 # Compiled Static libraries
 *.lai
